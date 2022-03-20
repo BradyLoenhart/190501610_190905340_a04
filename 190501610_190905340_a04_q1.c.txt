@@ -1,0 +1,88 @@
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <ctype.h>
+#include <stdbool.h>
+#include <time.h>
+#include <string.h>
+#include <pthread.h>
+#include <semaphore.h>
+
+int readFile(char *fName);
+void readSeq(char *fName, int max[rowNum][colNum]);
+void bankersAlgorithm(int args[]);
+int resourceRequest(int args[]);
+int resourceRelease(int args[]);
+void* threadRun();
+bool safeyCheck(int *avail, int *alloc, int *need);
+void state(int *avail, int *max, int *alloc, int *need);
+int sumArr(int arr[], int i);
+void getColNum(char *fName);
+void runCMD();
+
+int rowNum = -1;
+int colNum = -1;
+
+// Necessary data structure as laid out on pp.335 in course textbook (Operating System Concepts)
+int *availPtr;
+int *maxPtr;
+int *allocPtr;
+int *needPtr;
+
+
+typedef struct thread {
+    pthread_t process;
+    unsigned int timeStart;
+    char tib[4];
+    int status;
+    int returnVal;
+} Thread;
+
+int main(int argc, char *argv[]) {
+
+}
+
+int readFile(char *fName) {
+
+}
+
+void bankersAlgorithm(int args[]) {
+
+}
+
+void readSeq(char *fName, int max[rowNum][colNum]) {
+
+}
+
+void* threadRun() {
+
+}
+
+int resourceRelease(int args[]) {
+
+}
+
+bool safeyCheck(int *avail, int *alloc, int *need) {
+
+}
+
+int resourceRequest(int args[]) {
+
+}
+
+void getColNum(char *fName) {
+
+}
+
+void state(int *avail, int *max, int *alloc, int *need) {
+
+}
+
+int sumArr(int arr[], int i) {
+
+}
+
+void runCMD() {
+
+}
