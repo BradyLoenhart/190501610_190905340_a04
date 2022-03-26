@@ -177,6 +177,48 @@ bool safeyCheck(int *avail, int *alloc, int *need) {
 }
 
 int resourceRequest(int args[]) {
+	int clientNum = args[0];
+	int req[colNum];
+	//Extracts the number of resources for each customer
+	for (int i = 0; i < colNum; i++) {
+		req[i] = args[i + 1];
+
+	}
+
+	bool valid;
+	//checks if the resources are valid for each customer
+
+	for (int j = 0; j < colNum && valid; j++) {
+		valid = req[i] <= *(needPtr + (clientNum * colNum + j));
+
+	}
+	if (valid == true) {
+		for (int j = 0; j < colNum && valid; j++) {
+			valid = req[j] <= *(availPtr + j);
+
+		}
+		if (valid == true) {
+			for (int j = 0; j < colNum; j++) {
+				availPtr[j] -= req[j];
+				*((allocPtr + clientNum * colNum) + j) += req[j];
+				*((needPtr + clientNum * colNum) + j) -= req[j];
+			}
+		}
+		if (safeyCheck(availPtr, allocPtr, needPtr)) {
+
+			return 1;	//request is satisfied
+
+		} else
+			//unsafe state perform recovery {
+			for (int i = 0; i < colNum; i++) {
+				availPtr[i] += req[i];
+				*((allocPtr + clientNum * colNum) + i) -= req[i];
+				*((needPtr + clientNum * colNum) + i) += req[i];
+			}
+		return 0;	//unsatisfied request
+	} else {
+		return 0;	//not enough resources
+	}
 
 }
 
