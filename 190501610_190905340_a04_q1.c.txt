@@ -34,7 +34,7 @@ int *needPtr;
 typedef struct thread {
     pthread_t process;
     unsigned int timeStart;
-    char tib[4];
+    char tid[4];
     int status;
     int returnVal;
 } Thread;
