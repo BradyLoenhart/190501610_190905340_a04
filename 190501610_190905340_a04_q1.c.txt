@@ -75,6 +75,34 @@ void bankersAlgorithm(int args[]) {
 
 void readSeq(char *fName, int max[rowNum][colNum]) {
 
+	FILE *fpt = fopen("sample4_in.txt", 'r');
+
+	if (!fpt) {
+		printf("Error in opening file\n");
+		exit(-1);
+	}
+
+	char *token;
+	int i = 0;
+	while (!feof(fpt)) {
+		char ln[100];
+		if (fgets(ln, 100, fpt) != NULL) {
+			token = strtok(line, ",");
+			printf("%s", ln);
+
+			int j = 0;
+
+			while (token != NULL) {
+				max[i][j] = atoi(token);
+				token = strtok(NULL, ",");
+				j++;
+
+			}
+		}
+		i++;
+	}
+	printf("\n");
+	fclose(fpt);
 }
 
 void* threadRun() {
