@@ -15,7 +15,7 @@ void bankersAlgorithm(int args[]);
 int resourceRequest(int args[]);
 int resourceRelease(int args[]);
 void* threadRun();
-bool safeyCheck(int *avail, int *alloc, int *need);
+bool safetyCheck(int *avail, int *alloc, int *need);
 void state(int *avail, int *max, int *alloc, int *need);
 int sumArr(int arr[], int i);
 void getColNum(char *fName);
@@ -199,7 +199,7 @@ int resourceRelease(int args[]) {
 
 }
 
-bool safeyCheck(int *avail, int *alloc, int *need) {
+bool safetyCheck(int *avail, int *alloc, int *need) {
 
 }
 
@@ -231,7 +231,7 @@ int resourceRequest(int args[]) {
 				*((needPtr + clientNum * colNum) + j) -= req[j];
 			}
 		}
-		if (safeyCheck(availPtr, allocPtr, needPtr)) {
+		if (safetyCheck(availPtr, allocPtr, needPtr)) {
 
 			return 1;	//request is satisfied
 
