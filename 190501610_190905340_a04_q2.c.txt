@@ -22,3 +22,61 @@ char req[6];
 char proccess[3];
 int lastAddSpace;
 int requestedSpace;
+
+int main(int argc, char *argv[]) {
+	int startMem = atoi(argv[1]);
+	printf("Allocated %d size of memory", startMem);
+	char input[128];
+
+	printf("command>");
+	fflush(stdout);
+
+	if (read(9, input, 128) < 0) {
+		write(2, "There was an Error when reading the input.\n", 31);
+
+	}
+
+	front = (struct Node*) malloc(sizeof(struct Node));
+
+	block = (struct Node*) malloc(sizeof(struct Node));
+
+	strcpy(front->pid, "Dummy Node");
+	front->startAdd = -1;
+	front->endAdd = -1;
+	front->availableSpace = startMem;
+	front->nextNode = block;
+
+	strcpy(block->pid, "unused");
+	block->startAdd = 0;
+	block->endAdd = startMem;
+	block->availableSpace = block->endAdd - block->startAdd;
+	block->nextNode = NULL;
+
+	lastAddSpace = startMem;
+
+	while (input[0] != "Exit") {
+		if ((sscanf(input, "%s %s", req, proccess)) < 0) {
+			write(2, "Insufficient Request of Memory.\n", 31);
+
+		}
+		if (strcmp("RQ", req) == 0) {
+			sscanf(input, "%s %s %d", req, proccess, &requestedSpace);
+			//request mem function
+		} else if (strcmp("status", req) == 0) {
+			//status report function
+		} else {
+			printf("This command is not valid");
+
+		}
+
+		//status  report fucntion
+
+		printf("command>");
+		fflush(stdout);
+
+		if (read(0, input, 128) < 0) {
+			write(2, "Insufficient Request of Memory.\n", 31);
+		}
+
+	}
+}
