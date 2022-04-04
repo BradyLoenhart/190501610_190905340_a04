@@ -45,18 +45,18 @@ int main(int argc, char *argv[]) {
 	if (argc > colNum + 1) {
 		printf("Command Overflow [EXITING SYSTEM]");
 		return -1;
-	} else if (args < colNum + 1) {
+	} else if (argc < colNum + 1) {
 		printf("Missing Command [EXITING SYSTEM]");
 
 	} else {
 		for (int i = 1; i < argc; i++) {
 			if (isalpha(*argv[i]) != 0) {
-				printf("Not valid input [EXITING SYSTEM]")
+				printf("Not valid input [EXITING SYSTEM]");
 			}
 		}
 	}
 
-	int totalClients = readFile();
+	int totalClients = readFile("sample4_in.txt");
 	printf("Number of Clients: %d\n", totalClients);
 	printf("Available Resources: ");
 	for (int i = 0; i < colNum; i++) {
@@ -76,26 +76,26 @@ int main(int argc, char *argv[]) {
 	//initializes the number of allocated resources
 	for (int i = 0; i < rowNum; i++) {
 		for (int j = 0; j < colNum; j++) {
-			alloc[i][j];
+			int alloc[i][j];
 		}
 	}
 	int max[rowNum][colNum];
 
 	printf("Max Resources:\n");
-	readSeq(max);	//initializes the max number of resources required
+	readSeq("sample4_in.txt", max);	//initializes the max number of resources required
 
 	int need[rowNum][colNum];
 	//initializes the needed number of resources
 	for (int i = 0; i < rowNum; i++) {
 		for (int j = 0; j < colNum; j++) {
-			need[i][j] - max[i][j] - alloc[i][j];
+			need[i][j] = max[i][j] - alloc[i][j];
 		}
 	}
 
-	availPtr = avail[0];//number of available resources
-	allocPtr = alloc[0][0];//Matrix for allocation
-	needPtr = need[0][0];//Matrix for needed
-	maxPtr = max[0][0];//Matrxi for max
+	availPtr = avail[0];	//number of available resources
+	allocPtr = alloc[0][0];	//Matrix for allocation
+	needPtr = need[0][0];	//Matrix for needed
+	maxPtr = max[0][0];	//Matrix for max
 
 	runCMD();
 	return 0;
