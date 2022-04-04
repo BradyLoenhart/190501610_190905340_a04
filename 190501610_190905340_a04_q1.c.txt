@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
 	//initializes the number of allocated resources
 	for (int i = 0; i < rowNum; i++) {
 		for (int j = 0; j < colNum; j++) {
-			int alloc[i][j];
+			alloc[i][j];
 		}
 	}
 	int max[rowNum][colNum];
@@ -92,10 +92,10 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	availPtr = avail[0];	//number of available resources
-	allocPtr = alloc[0][0];	//Matrix for allocation
-	needPtr = need[0][0];	//Matrix for needed
-	maxPtr = max[0][0];	//Matrix for max
+	availPtr = &avail[0];	//number of available resources
+	allocPtr = &alloc[0][0];	//Matrix for allocation
+	needPtr = &need[0][0];	//Matrix for needed
+	maxPtr = &max[0][0];	//Matrix for max
 
 	runCMD();
 	return 0;
