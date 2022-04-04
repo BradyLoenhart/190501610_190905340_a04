@@ -277,8 +277,69 @@ int resourceRelease(int args[]) {
 
 }
 
+/* Excerpt from lecture slides
+ * 1. Let a = work and fin = finish be vectors of
+ * length m and n, respectively.
+ * Initialize a = avail and fin[i]
+ * = false for i = 0, 1, ..., n − 1.
+ * 2. Find an index i such that both
+ * a. fin[i] == false
+ * b. needi ≤ Work
+ * If no such i exists, go to step 4.
+ * 3. a = a + alloci
+ * fin[i] = true
+ * Go to step 2.
+ * 4. If fin[i] == true for all i, then the system
+ * is in a safe state.
+ */
 bool safetyCheck(int *avail, int *alloc, int *need) {
-
+	int a[colNum];
+	int i;
+	for (i = 0; i < colNum; i++) {
+		a[i] = *(avail + i);
+	}
+	printf("\n");
+	bool fin[colNum];
+	for (i = 0; i < colNum; i++) {
+		fin[i] = false;
+	}
+	i = 0;
+	int safeSeq[rowNum];
+	while (i < rowNum) {
+		bool discovered = false;
+		int j;
+		for (j = 0; j < rowNum; j++) {
+			if (fin[i] == false) {
+				int k = 0;
+				for (k = 0; k < colNum; k++) {
+					if (*((j * colNum + need) + k) > a[k]) {
+						break;
+					}
+				}
+				if (k == colNum) {
+					int l;
+					for (l = 0; l < colNum; l++) {
+						a[l] = a[l] + *((colNum * j + alloc) + l);
+					}
+					discovered = true;
+					safeSeq[i++] = j;
+					fin[j] = true;
+				}
+			}
+		}
+		if (discovered != true) {
+			printf("System is not in a safe state\n");
+			return false;
+		}
+	}
+	printf("State is safe, and request is satisfied:\n");
+	printf("The SAFE sequence is: ");
+	printf("TEST >>> %d\n", safeSeq[4]);
+	for (i = 0; i < rowNum - 1; i++) {
+		printf(" P%d ->", safeSeq[i]);
+	}
+	printf(" P%d\n\n", safeSeq[rowNum - 1]);
+	return true;
 }
 
 int resourceRequest(int args[]) {
