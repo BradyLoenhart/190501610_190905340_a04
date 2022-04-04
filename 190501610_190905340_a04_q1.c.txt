@@ -460,5 +460,48 @@ int sumArr(int arr[], int i) {
 }
 
 void runCMD() {
-
+	char cmmd[150];
+	bool continuing = true;
+	while (continuing) {
+		printf("Enter Command: ");
+		fgets(cmmd, 150, stdin);
+		char *tok = strtok(cmmd, " ");
+		int arr[colNum + 1];
+		tok = strtok(NULL, " ");
+		int i = 0;
+		while (!(tok == NULL)) {
+			arr[i] = atoi(tok);
+			tok = strtok(NULL, " ");
+			i++;
+		}
+		/* ---NOT WORKING fix--- case sensitivity issues, ---NOT WORKING---
+		 *for (char *lwrCaseCMD = cmmd; *lwrCaseCMD; *lwrCaseCMD++) {
+		 *	*lwrCaseCMD = tolower(*lwrCaseCMD);
+		 *}
+		 */
+		// command to release
+		if (!(strstr(cmmd, "rl") == NULL)) {
+			resourceRelease(arr);
+		}
+		// command to request
+		else if (!(strstr(cmmd, "rq") == NULL)) {
+			if (resourceRequest(arr) != true) {
+				printf("\nSystem is not in safe state\n\n");
+			}
+		}
+		// command to exit
+		else if (!(strstr(cmmd, "exit") == NULL)) {
+			printf("Exiting Program...");
+			continuing = false;
+		}
+		// command to run thread
+		else if (!(strstr(cmmd, "run") == NULL)) {
+			printf("run\n");
+			threadRun();
+		}
+		// invalid command used
+		else {
+			printf("Invalid input, use one of RQ, RL, Status, Run, Exit");
+		}
+	}
 }
