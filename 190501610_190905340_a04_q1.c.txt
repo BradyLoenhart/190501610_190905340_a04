@@ -346,15 +346,16 @@ int resourceRequest(int args[]) {
 	int clientNum = args[0];
 	int req[colNum];
 	//Extracts the number of resources for each customer
-	for (int i = 0; i < colNum; i++) {
+	int i;
+	for (i = 0; i < colNum; i++) {
 		req[i] = args[i + 1];
 
 	}
 
 	bool valid;
 	//checks if the resources are valid for each customer
-
-	for (int j = 0; j < colNum && valid; j++) {
+	int j;
+	for (j = 0; j < colNum && valid; j++) {
 		valid = req[i] <= *(needPtr + (clientNum * colNum + j));
 
 	}
