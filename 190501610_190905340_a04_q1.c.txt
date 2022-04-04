@@ -9,6 +9,9 @@
 #include <pthread.h>
 #include <semaphore.h>
 
+int rowNum = -1;
+int colNum = -1;
+
 int readFile(char *fName);
 void readSeq(char *fName, int max[rowNum][colNum]);
 void bankersAlgorithm(int args[]);
@@ -20,9 +23,6 @@ void state(int *avail, int *max, int *alloc, int *need);
 int sumArr(int arr[], int i);
 void getColNum(char *fName);
 void runCMD();
-
-int rowNum = -1;
-int colNum = -1;
 
 // Necessary data structure as laid out on pp.335 in course textbook (Operating System Concepts)
 int *availPtr;
