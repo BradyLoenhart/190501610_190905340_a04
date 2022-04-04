@@ -178,7 +178,72 @@ void readSeq(char *fName, int max[rowNum][colNum]) {
 }
 
 void* threadRun() {
-
+	int rsrc[colNum];
+	char seq[125];
+	printf("Safe Sequence is: ");
+	// take Safe Sequence input from the user
+	fgets(seq, 125, stdin);
+	// print new line
+	printf("\n");
+	// fetch numbers, get rid of white space
+	char *tok = strtok(seq, " ");
+	// nums will hold values stored in tok
+	int nums[5];
+	int i = 0;
+	// convert str tok to int nums
+	while (!(tok == NULL)) {
+		// convert str to int
+		nums[i] = atoi(tok);
+		tok = strtok(NULL, " ");
+		// increment
+		i++;
+	}
+	for (int j = 0; j < i; j++) {
+		// identify customer/thread from nums
+		printf("--> Customer/Thread %d\n", nums[j]);
+		printf("\tAllocated resources: ");
+		// print the k'th calculated allocated resource, then increment
+		for (int k = 0; k < colNum; k++) {
+			printf("%d ", allocPtr[colNum * nums[j] + k]);
+			rsrc[k] = allocPtr[colNum * nums[j] + k]; // CHECK BACK HERE CAN THIS BE SIMPLIFIED
+		}
+		printf("\n\tNeeded: ");
+		// print the k'th needed resource, then increment
+		for (int k = 0; k < colNum; k++) {
+			printf("%d ", needPtr[colNum * nums[j] + k]);
+		}
+		printf("\n\tAvailable: ");
+		// print the kth available resource, then increment
+		for (int k = 0; k < colNum; k++) {
+			printf("%d ", availPtr[k]);
+		}
+		// next line
+		printf("\n");
+		// alert user thread has started
+		printf("\tThread has started\n");
+		// alert user thread has finished
+		printf("\tThread has finished\n");
+		// alert user thread is releasing resources
+		printf("\tThread is releasing resources\n");
+		for (int l = 0; l < colNum; l++) {
+			// add l'th resource to available
+			availPtr[l] = availPtr[l] + rsrc[l];
+			// takeaway l'th resource from allocated
+			*((colNum * nums[j] + allocPtr) + l) = *((colNum * nums[j]
+					+ allocPtr) + l) - rsrc[l];
+			// add l'th resource to needed
+			*((colNum * nums[j] + needPtr) + l) = *((colNum * nums[j] + needPtr)
+					+ l) + rsrc[l];
+		}
+		// alerts user of new available resources
+		printf("\tNew Available: ");
+		// print the new k'th available resource, then increment
+		for (int k = 0; k < colNum; k++) {
+			printf("%d ", availPtr[k]);
+		}
+		printf("\n");
+	}
+	return NULL;
 }
 
 int resourceRelease(int args[]) {
