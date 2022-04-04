@@ -128,6 +128,19 @@ int readFile(char *fName) {
 
 }
 
+/* Function for when a user asks for resources, system must
+ * When a user requests a set of
+ resources, the system must
+ determine whether the
+ allocation of these resources
+ will leave the system in a safe
+ state.
+ If it will, the resources are
+ allocated; otherwise, the
+ thread must wait until some
+ other thread releases enough
+ resources
+ */
 void bankersAlgorithm(int args[]) {
 
 }
