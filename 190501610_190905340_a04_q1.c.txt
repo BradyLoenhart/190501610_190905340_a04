@@ -444,7 +444,19 @@ void state(int *avail, int *max, int *alloc, int *need) {
 }
 
 int sumArr(int arr[], int i) {
-
+	// if zero or less gets passed as a parameter there is nothing to sum, exit
+	if (i <= 0) {
+		return (-1);
+		// find the sum and store it in the added variable
+	} else {
+		int added = 0;
+		int j;
+		// summation
+		for (j = 0; j < i; j++) {
+			added = added + arr[j];
+		}
+		return added;
+	}
 }
 
 void runCMD() {
