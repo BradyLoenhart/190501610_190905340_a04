@@ -390,7 +390,27 @@ int resourceRequest(int args[]) {
 }
 
 void getColNum(char *fName) {
-
+	// attempt to open input file
+	FILE *input = fopen("sample4_in.txt", "r");
+	char *tok;
+	// handling potential for failure to open input file
+	if (!(input)) {
+		printf("Opening of the input file has failed. Exit status -1!!!\n");
+		exit(-1);
+	}
+	if (!feof(input)) {
+		char ln[150];
+		if (!(fgets(ln, 150, input) == NULL)) {
+			tok = strtok(ln, ",");
+			colNum = 0;
+			while (!(tok == NULL)) {
+				colNum++;
+				tok = strtok(NULL, ",");
+			}
+		}
+	}
+	// closing input file
+	fclose(input);
 }
 
 void state(int *avail, int *max, int *alloc, int *need) {
