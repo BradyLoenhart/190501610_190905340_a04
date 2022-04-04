@@ -147,7 +147,7 @@ void bankersAlgorithm(int args[]) {
 
 void readSeq(char *fName, int max[rowNum][colNum]) {
 
-	FILE *fpt = fopen("sample4_in.txt", 'r');
+	FILE *fpt = fopen(fName, 'r');
 
 	if (!fpt) {
 		printf("Error in opening file\n");
@@ -159,7 +159,7 @@ void readSeq(char *fName, int max[rowNum][colNum]) {
 	while (!feof(fpt)) {
 		char ln[100];
 		if (fgets(ln, 100, fpt) != NULL) {
-			token = strtok(line, ",");
+			token = strtok(ln, ",");
 			printf("%s", ln);
 
 			int j = 0;
