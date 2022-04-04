@@ -414,7 +414,33 @@ void getColNum(char *fName) {
 }
 
 void state(int *avail, int *max, int *alloc, int *need) {
-
+	// alert user available resources are being printed
+	printf("Currently Available resources: ");
+	int i;
+	int j;
+	// print available resources from the avail data structure
+	for (i = 0; i < colNum; i++) {
+		printf("%d", avail[i]);
+	}
+	printf("\n");
+	// alert user maximum resources are being printed
+	printf("Maximum Resources:\n");
+	// print max resources from the alloc data structure
+	for (i = 0; i < rowNum; i++) {
+		for (j = 0; j < colNum; j++) {
+			printf("%d", *((i * colNum + alloc) + j));
+		}
+		printf("\n");
+	}
+	// alert user needed resources are being printed
+	printf("Need Resources:\n");
+	// print need resources from the need data structure
+	for (i = 0; i < rowNum; i++) {
+		for (j = 0; j < colNum; j++) {
+			printf("%d", *((i * colNum + need) + j));
+		}
+		printf("\n");
+	}
 }
 
 int sumArr(int arr[], int i) {
