@@ -103,13 +103,13 @@ int main(int argc, char *argv[]) {
 }
 
 int readFile(char *fName) {
-    FILE *fpt = fopen("sample4_in.txt", 'r');
+	FILE *fpt = fopen(fName, 'r');
 	if (!fpt) {
 		printf("Error in opening file\n");
 		return -1;
 	}
 
-	struct stat status;
+	struct stat st;
 	int counter = 0;
 	fstat(fileno(fpt), &st);
 	char *content = (char*) malloc(((int) st.st_size + 1) * sizeof(char));
@@ -118,7 +118,7 @@ int readFile(char *fName) {
 	while (!feof(fpt)) {
 		counter += 1;
 		char ln[100];
-		if (fgets(line, 100, fpt) != NULL) {
+		if (fgets(ln, 100, fpt) != NULL) {
 			strncat(content, ln, strlen(ln));
 		}
 
