@@ -1,3 +1,23 @@
+
+/*
+ * ----------------------------------------------------------------
+ * [Completed tasks outlined in CP386: Assignment 4 - Winter 2022]
+ * ----------------------------------------------------------------
+ * A4 Question1.c
+ * ----------------------------------------------------------------
+ * Author 1: Mohammad Safi
+ * Student ID: 190501610
+ * E-mail: safi1610@mylaurier.ca
+
+ * Author 2: Brady Loenhart
+ * Student ID: 190905340
+ * E-mail: loen5340@mylaurier.ca
+ * ----------------------------------------------------------------
+ * Due: Apr. 4th, 2022
+ * Prepared for both: Professor Sukhjit Sehra, sshera@wlu.ca
+ * & TA Ishmeet Singh, sing0078@mylaurier.ca
+ * ----------------------------------------------------------------
+ */
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
