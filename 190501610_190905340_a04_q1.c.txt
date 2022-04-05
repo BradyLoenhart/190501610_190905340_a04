@@ -30,13 +30,12 @@ int *maxPtr;
 int *allocPtr;
 int *needPtr;
 
-
 typedef struct thread {
-    pthread_t process;
-    unsigned int timeStart;
-    char tid[4];
-    int status;
-    int returnVal;
+	pthread_t process;
+	unsigned int timeStart;
+	char tid[4];
+	int status;
+	int returnVal;
 } Thread;
 
 int main(int argc, char *argv[]) {
@@ -76,7 +75,7 @@ int main(int argc, char *argv[]) {
 	//initializes the number of allocated resources
 	for (int i = 0; i < rowNum; i++) {
 		for (int j = 0; j < colNum; j++) {
-			alloc[i][j];
+			alloc[i][j] = 0;
 		}
 	}
 	int max[rowNum][colNum];
@@ -103,7 +102,7 @@ int main(int argc, char *argv[]) {
 }
 
 int readFile(char *fName) {
-	FILE *fpt = fopen(fName, "r");
+	FILE *fpt = fopen("sample4_in.txt", "r");
 	if (!fpt) {
 		printf("Error in opening file\n");
 		return -1;
@@ -147,10 +146,10 @@ void bankersAlgorithm(int args[]) {
 
 void readSeq(char *fName, int max[rowNum][colNum]) {
 
-	FILE *fpt = fopen(fName, "r");
+	FILE *fpt = fopen("sample4_in.txt", "r");
 
 	if (!fpt) {
-		printf("Error in opening file\n");
+		printf("Error in opening file -1\n");
 		exit(-1);
 	}
 
@@ -159,19 +158,19 @@ void readSeq(char *fName, int max[rowNum][colNum]) {
 	while (!feof(fpt)) {
 		char ln[100];
 		if (fgets(ln, 100, fpt) != NULL) {
-			token = strtok(ln, ",");
 			printf("%s", ln);
+			token = strtok(ln, ",");
 
 			int j = 0;
 
 			while (token != NULL) {
 				max[i][j] = atoi(token);
 				token = strtok(NULL, ",");
-				j++;
+				j += 1;
 
 			}
 		}
-		i++;
+		i += 1;
 	}
 	printf("\n");
 	fclose(fpt);
@@ -179,10 +178,10 @@ void readSeq(char *fName, int max[rowNum][colNum]) {
 
 void* threadRun() {
 	int rsrc[colNum];
-	char seq[125];
+	char seq[100];
 	printf("Safe Sequence is: ");
 	// take Safe Sequence input from the user
-	fgets(seq, 125, stdin);
+	fgets(seq, 100, stdin);
 	// print new line
 	printf("\n");
 	// fetch numbers, get rid of white space
@@ -191,12 +190,12 @@ void* threadRun() {
 	int nums[5];
 	int i = 0;
 	// convert str tok to int nums
-	while (!(tok == NULL)) {
+	while (tok != NULL) {
 		// convert str to int
 		nums[i] = atoi(tok);
 		tok = strtok(NULL, " ");
 		// increment
-		i++;
+		i += 1;
 	}
 	for (int j = 0; j < i; j++) {
 		// identify customer/thread from nums
@@ -204,13 +203,13 @@ void* threadRun() {
 		printf("\tAllocated resources: ");
 		// print the k'th calculated allocated resource, then increment
 		for (int k = 0; k < colNum; k++) {
-			printf("%d ", allocPtr[colNum * nums[j] + k]);
-			rsrc[k] = allocPtr[colNum * nums[j] + k]; // CHECK BACK HERE CAN THIS BE SIMPLIFIED
+			printf("%d ", allocPtr[nums[j] * colNum + k]);
+			rsrc[k] = allocPtr[nums[j] * colNum + k]; // CHECK BACK HERE CAN THIS BE SIMPLIFIED
 		}
 		printf("\n\tNeeded: ");
 		// print the k'th needed resource, then increment
 		for (int k = 0; k < colNum; k++) {
-			printf("%d ", needPtr[colNum * nums[j] + k]);
+			printf("%d ", needPtr[nums[j] * colNum + k]);
 		}
 		printf("\n\tAvailable: ");
 		// print the kth available resource, then increment
@@ -229,11 +228,12 @@ void* threadRun() {
 			// add l'th resource to available
 			availPtr[l] = availPtr[l] + rsrc[l];
 			// takeaway l'th resource from allocated
-			*((colNum * nums[j] + allocPtr) + l) = *((colNum * nums[j]
+			*((nums[j] * colNum + allocPtr) + l) = *((nums[j] * colNum
 					+ allocPtr) + l) - rsrc[l];
 			// add l'th resource to needed
-			*((colNum * nums[j] + needPtr) + l) = *((colNum * nums[j] + needPtr)
+			*((nums[j] * colNum + needPtr) + l) = *((nums[j] * colNum + needPtr)
 					+ l) + rsrc[l];
+
 		}
 		// alerts user of new available resources
 		printf("\tNew Available: ");
@@ -255,7 +255,7 @@ int resourceRelease(int args[]) {
 	for (int i = 0; i < colNum; i++) {
 		resource[i] = args[i + 1];
 	}
-	//checks if there aren't any extra resources being allocated
+//checks if there aren't any extra resources being allocated
 	for (int i = 0; i < colNum; i++) {
 		if (valid == true) {
 			//resources are released
@@ -345,7 +345,7 @@ bool safetyCheck(int *avail, int *alloc, int *need) {
 int resourceRequest(int args[]) {
 	int clientNum = args[0];
 	int req[colNum];
-	//Extracts the number of resources for each customer
+//Extracts the number of resources for each customer
 	int i;
 	for (i = 0; i < colNum; i++) {
 		req[i] = args[i + 1];
@@ -353,10 +353,10 @@ int resourceRequest(int args[]) {
 	}
 
 	bool valid;
-	//checks if the resources are valid for each customer
+//checks if the resources are valid for each customer
 	int j;
 	for (j = 0; j < colNum && valid; j++) {
-		valid = req[i] <= *(needPtr + (clientNum * colNum + j));
+		valid = req[j] <= *(needPtr + (clientNum * colNum + j));
 
 	}
 	if (valid == true) {
@@ -388,12 +388,11 @@ int resourceRequest(int args[]) {
 	}
 
 }
-
 void getColNum(char *fName) {
-	// attempt to open input file
+// attempt to open input file
 	FILE *input = fopen("sample4_in.txt", "r");
 	char *tok;
-	// handling potential for failure to open input file
+// handling potential for failure to open input file
 	if (!(input)) {
 		printf("Opening of the input file has failed. Exit status -1!!!\n");
 		exit(-1);
@@ -409,32 +408,32 @@ void getColNum(char *fName) {
 			}
 		}
 	}
-	// closing input file
+// closing input file
 	fclose(input);
 }
 
 void state(int *avail, int *max, int *alloc, int *need) {
-	// alert user available resources are being printed
+// alert user available resources are being printed
 	printf("Currently Available resources: ");
 	int i;
 	int j;
-	// print available resources from the avail data structure
+// print available resources from the avail data structure
 	for (i = 0; i < colNum; i++) {
 		printf("%d", avail[i]);
 	}
 	printf("\n");
-	// alert user maximum resources are being printed
+// alert user maximum resources are being printed
 	printf("Maximum Resources:\n");
-	// print max resources from the alloc data structure
+// print max resources from the alloc data structure
 	for (i = 0; i < rowNum; i++) {
 		for (j = 0; j < colNum; j++) {
 			printf("%d", *((i * colNum + alloc) + j));
 		}
 		printf("\n");
 	}
-	// alert user needed resources are being printed
+// alert user needed resources are being printed
 	printf("Need Resources:\n");
-	// print need resources from the need data structure
+// print need resources from the need data structure
 	for (i = 0; i < rowNum; i++) {
 		for (j = 0; j < colNum; j++) {
 			printf("%d", *((i * colNum + need) + j));
@@ -444,7 +443,7 @@ void state(int *avail, int *max, int *alloc, int *need) {
 }
 
 int sumArr(int arr[], int i) {
-	// if zero or less gets passed as a parameter there is nothing to sum, exit
+// if zero or less gets passed as a parameter there is nothing to sum, exit
 	if (i <= 0) {
 		return (-1);
 		// find the sum and store it in the added variable
@@ -480,22 +479,25 @@ void runCMD() {
 		 *}
 		 */
 		// command to release
-		if (!(strstr(cmmd, "rl") == NULL)) {
+		if (!(strstr(cmmd, "RL") == NULL)) {
 			resourceRelease(arr);
 		}
 		// command to request
-		else if (!(strstr(cmmd, "rq") == NULL)) {
-			if (resourceRequest(arr) != true) {
+		else if (!(strstr(cmmd, "RQ") == NULL)) {
+			if (resourceRequest(arr) == false) {
 				printf("\nSystem is not in safe state\n\n");
+			} else {
+				printf("\nSystem is in a safe state\n\n");
+
 			}
 		}
 		// command to exit
-		else if (!(strstr(cmmd, "exit") == NULL)) {
+		else if (!(strstr(cmmd, "EXIT") == NULL)) {
 			printf("Exiting Program...");
 			continuing = false;
 		}
 		// command to run thread
-		else if (!(strstr(cmmd, "run") == NULL)) {
+		else if (!(strstr(cmmd, "RUN") == NULL)) {
 			printf("run\n");
 			threadRun();
 		}
