@@ -1,5 +1,12 @@
-# 190501610_190905340_a04
+# Assignment 4: CP386 (Mohammad Safi, Brady Loenhart)
 CP386 Assignment 4 repository
+
+------------------------------------------------------------------
+Motivation:
+------------------------------------------------------------------
+
+Was aprt of a required course assignment and allowed something about 
+Opreating Systems.
 
  ----------------------------------------------------------------
  [Completed tasks outlined in CP386: Assignment 4 - Winter 2022]
