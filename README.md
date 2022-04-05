@@ -17,6 +17,7 @@ CP386 Assignment 4 repository
  & TA Ishmeet Singh, sing0078@mylaurier.ca
  ----------------------------------------------------------------
  [Funcitons]
+ ----------------------------------------------------------------
  Mohammad Safi:
  Q1:
 int readFile(char *fName);
@@ -37,4 +38,4 @@ void state(int *avail, int *max, int *alloc, int *need);
 int sumArr(int arr[], int i);
 void getColNum(char *fName);
 void runCMD();
-
+--------------------------------------------------------------------
