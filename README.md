@@ -11,7 +11,8 @@ CP386 Assignment 4 repository
  Author 2: Brady Loenhart
  Student ID: 190905340
  E-mail: loen5340@mylaurier.ca
- ----------------------------------------------------------------
+ 
+ ---------------------------------------------------------------
  Due: Apr.2nd, 2022
  Prepared for both: Professor Sukhjit Sehra, sshera@wlu.ca
  & TA Ishmeet Singh, sing0078@mylaurier.ca
@@ -38,4 +39,3 @@ void state(int *avail, int *max, int *alloc, int *need);
 int sumArr(int arr[], int i);
 void getColNum(char *fName);
 void runCMD();
---------------------------------------------------------------------
