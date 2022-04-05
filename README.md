@@ -46,3 +46,20 @@ void state(int *avail, int *max, int *alloc, int *need);
 int sumArr(int arr[], int i);
 void getColNum(char *fName);
 void runCMD();
+
+-------------------------------------------------------------------
+Description:
+-------------------------------------------------------------------
+190501610_190905340_a04_q1.c
+---------------------------
+This is a multi-threaded program. It is the implementation of the Banker's algorithm
+where customers release resources and also request them from the bank. The resources
+are kept track of by the banker. The safetyCheck algorithm will grant a request if it
+is satisfied. Any request that leaves it in an unsafe state will be denied by the banker.
+
+190501610_190905340_a04_q2.c
+---------------------------
+This program has contiguous memory allocation using an implementation of ther Best-Fit
+algorithm. This program manages a region of contiguous memory. It handles 3 important
+requests. It reports allocated and free memory. It both requests and releases a contiguous
+memory block.
